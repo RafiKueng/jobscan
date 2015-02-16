@@ -12,13 +12,6 @@ avail_keys = {}
 counter = 0
 log = []
 
-def printlog():
-    for l in log:
-        print l
-        
-def printres():
-    for k, data in sorted(offers.items()):
-        print '%03i | %-30s | %-40s' % (k, data['title'][:30], data['description'][:40])
 
 def parse_string(el):
    text = ''.join(el.findAll(text=True))
@@ -45,7 +38,7 @@ def parseResultPage(html):
         dataa = data
 
         cols = row.find_all('td')
-        if len(cols)==0:
+        if len(cols)<4: # can be 0 for special cases?; can be 1 for t header "aehnliche stellenangebote" 
             continue
         
         data["title"] = cols[1].a.span.text
@@ -212,13 +205,13 @@ data = {
     'allgemeineSuchkriterien.eingeklappt': 'false',
     'berufe.wert': '',
     '_keineAehnlicheBerufe.wert.value': 'on',
-    'nurStellenMitFolgendenBegriffen.wert': 'Biologin*',
+    'nurStellenMitFolgendenBegriffen.wert': 'Bio*',
     'suchbegriffebeziehung.wert.wert': '2',
     'nurStellenOhneFolgendeBegriffe.wert': '',
     'arbeitsort.plz.wert': '',
-    'arbeitsort.ort.wert': '',
+    'arbeitsort.ort.wert': 'Konstanz',
     'arbeitsort.region.wert.wert': 'leer',
-    'umkreis.wert': '',
+    'umkreis.wert': '200',
     'stellenangeboteDerLetzten.wert.wert': '',
     'weitereSuchkriterien.eingeklappt': 'true',
     'fuhrungsverantwortung.wert.wert': '',
@@ -272,9 +265,6 @@ while page<10:
     
     cookies = {
 #        'expires': 'Sun, 15 Feb 2015 22:07:24 GMT',
-#        'jsessionid': 'YjmvJhHfMjmKQplpZrjnLMyJVS8s90pLxvTx21QCchKDF0ZWMmbN!-1026521087',
-#        'jsessionid': 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa!-0000000000',
-#        'jsessionid': 'vDYyJhRTVMYYcQ7ggc1y1ddXXr5G6p1rBHTmKLwtDTh7JzwcG18R!-1026521087',
 #        'jsessionid': se.cookies['jsessionid'],
     }
     
